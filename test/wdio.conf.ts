@@ -1,3 +1,5 @@
+const report = require('multiple-cucumber-html-reporter')
+
 export const config: WebdriverIO.Config = {
     //
     // ====================
@@ -159,10 +161,20 @@ export const config: WebdriverIO.Config = {
     // Whether or not retried specfiles should be retried immediately or deferred to the end of the queue
     // specFileRetriesDeferred: false,
     //
+    
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
+    reporters: [
+        'spec',
+        [ 'cucumberjs-json', {
+            jsonFolder: 'reports/json',
+            language: 'en',
+        },
+    ],
+
+
+    ],
 
 
     //
@@ -189,7 +201,8 @@ export const config: WebdriverIO.Config = {
         // <number> timeout for step definitions
         timeout: 60000,
         // <boolean> Enable this config to treat undefined definitions as warnings.
-        ignoreUndefinedDefinitions: false
+        ignoreUndefinedDefinitions: false,
+        retry: 1
     },
     
     //
@@ -338,8 +351,15 @@ export const config: WebdriverIO.Config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities, results) {
-    // },
+    onComplete: function(exitCode, config, capabilities, results) {
+        const options = {
+            jsonDir: './reports/json',
+            reportPath: './reports/html',
+            disableLog: true
+        }
+        
+        report.generate(options)
+    },
     /**
     * Gets executed when a refresh happens.
     * @param {String} oldSessionId session ID of the old session
