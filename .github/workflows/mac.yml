@@ -1,4 +1,4 @@
-name: run on ubuntu
+name: run on mac
 on: [push, pull_request]
 jobs:
   build:
