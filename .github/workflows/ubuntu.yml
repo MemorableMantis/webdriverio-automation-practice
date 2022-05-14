@@ -21,6 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: print event name
-        if: ${{$GITHUB_EVENT_NAME == 'workflow_dispatch'}}
+        if: ${{github.event_name == 'workflow_dispatch'}}
         run: |
           echo $GITHUB_EVENT_NAME
