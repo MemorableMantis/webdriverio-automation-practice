@@ -20,7 +20,7 @@ jobs:
   workflow-command-job:
     runs-on: ubuntu-latest
     steps:
-      - name: toggle workflow command echoing
+      - name: print event name
+        if: ${{GITHUB_EVENT_NAME === 'workflow_dispatch'}}
         run: |
-          echo GITHUB_EVENT_NAME
           echo $GITHUB_EVENT_NAME
