@@ -1,0 +1,19 @@
+name: run on ubuntu
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        - uses: actions/setup-node@v1
+          with:
+            node-version: 16.13.0
+        - name: Install
+          run: npm install
+        - name: Test
+          run: npm run wdio
+        - uses: actions/upload-artifact@v3
+          with:
+            name: report
+            path: reports/html/
