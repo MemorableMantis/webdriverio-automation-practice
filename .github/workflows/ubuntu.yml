@@ -1,5 +1,5 @@
 name: run on ubuntu
-on: [push, pull_request]
+on: [pull_request, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,3 +17,13 @@ jobs:
           with:
             name: report
             path: reports/html/
+  workflow-command-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: toggle workflow command echoing
+        run: |
+          echo '::set-output name=action_echo::disabled'
+          echo '::echo::on'
+          echo '::set-output name=action_echo::enabled'
+          echo '::echo::off'
+          echo '::set-output name=action_echo::disabled'
