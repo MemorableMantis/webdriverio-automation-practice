@@ -22,8 +22,5 @@ jobs:
     steps:
       - name: toggle workflow command echoing
         run: |
-          echo '::set-output name=action_echo::disabled'
-          echo '::echo::on'
-          echo '::set-output name=action_echo::enabled'
-          echo '::echo::off'
-          echo '::set-output name=action_echo::disabled'
+          echo "hello world"
+          echo $home
